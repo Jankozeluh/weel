@@ -31,7 +31,7 @@ To create a new note, click **+ new file** in the library, pick a folder and typ
 
 ## Keys
 
-`t` start or stop the timer · `e` edit the current file · `r` open a random file · `n` new topic · `/` filter files · `Esc` back
+`t` start or stop the timer · `e` edit the current file · `r` open a random file · `n` new topic · `f` new file · `/` filter files · `Esc` back
 
 ## Data
 
