@@ -30,16 +30,23 @@ a { color: var(--fg); text-decoration: underline; text-underline-offset: 3px; }
 a:hover { text-decoration-thickness: 2px; }
 
 header {
-  display: flex; align-items: baseline; gap: 14px;
+  display: flex; align-items: center; justify-content: space-between; gap: 18px;
   padding-bottom: 18px; margin-bottom: 24px;
   border-bottom: 1px solid var(--fg);
-  flex-wrap: wrap;
 }
-header .brand { display: flex; flex-direction: column; align-items: flex-start; gap: 0; }
+header .header-left { display: flex; align-items: center; gap: 14px; min-width: 0; }
+header .brand { display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--fg); }
+header .brand:hover { text-decoration: none; }
+header .brand-icon { width: 26px; height: 26px; object-fit: cover; display: block; }
+header .brand-text { display: flex; flex-direction: column; align-items: flex-start; gap: 0; }
 header .title { font-weight: 600; line-height: 1; }
 header .tagline { color: var(--dim); font-size: 10px; text-transform: lowercase; letter-spacing: 0.12em; margin-top: 2px; }
-header .path { color: var(--dim); font-size: 13px; flex: 1; }
-header nav { display: flex; gap: 14px; font-size: 14px; }
+header .path { color: var(--dim); font-size: 13px; white-space: nowrap; }
+header nav { display: flex; gap: 14px; font-size: 14px; white-space: nowrap; }
+
+@media (max-width: 640px) {
+  header { flex-wrap: wrap; gap: 10px; }
+}
 
 input, select, textarea, button {
   font: inherit; color: var(--fg); background: transparent;
@@ -226,6 +233,33 @@ footer {
   padding: 10px; background: var(--bg); border-top: 1px solid var(--line);
   pointer-events: none;
 }
+
+/* tutorial overlay */
+.tutorial-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  display: grid; place-items: center;
+  z-index: 100; padding: 24px;
+}
+:root[data-theme="dark"] .tutorial-overlay { background: rgba(0, 0, 0, 0.65); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .tutorial-overlay { background: rgba(0, 0, 0, 0.65); }
+}
+.tutorial-card {
+  background: var(--bg); color: var(--fg);
+  border: 1px solid var(--fg);
+  max-width: 540px; width: 100%;
+  padding: 26px 28px 22px;
+  font-size: 14px; line-height: 1.55;
+  max-height: calc(100vh - 48px); overflow-y: auto;
+}
+.tutorial-brand { color: var(--dim); font-size: 10px; text-transform: lowercase; letter-spacing: 0.14em; margin-bottom: 6px; }
+.tutorial-card h2 { font-size: 22px; margin: 0 0 12px; font-weight: 600; letter-spacing: -0.005em; }
+.tutorial-card p { margin: 10px 0; }
+.tutorial-card ol { padding-left: 18px; margin: 14px 0; }
+.tutorial-card ol li { margin: 8px 0; }
+.tutorial-card kbd { background: var(--line); border-radius: 3px; padding: 1px 6px; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 11px; }
+.tutorial-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 22px; }
 
 @media (max-width: 540px) {
   .session-row { grid-template-columns: 1fr; gap: 4px; }

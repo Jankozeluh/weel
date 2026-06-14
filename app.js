@@ -7,6 +7,7 @@ const weekTotal = $('#weekTotal');
 
 const KEY = 'weel.tracker.v1';
 const KEY_TOPICMAP = 'weel.entryTopics.v1';
+const KEY_TUTORIAL = 'weel.tutorial.seen.v1';
 const EDITABLE_EXTS = new Set(['md', 'markdown', 'txt', 'text', 'log', 'json', 'csv', 'tsv', 'yaml', 'yml', 'xml', 'js', 'ts', 'py', 'css', 'html', 'htm', 'sh']);
 const PLAIN_VIEW_EXTS = new Set(['txt', 'text', 'log', 'json', 'csv', 'tsv', 'yaml', 'yml', 'xml', 'js', 'ts', 'py', 'css', 'sh']);
 
@@ -910,10 +911,16 @@ function renderData() {
       <input type="file" id="importFile" accept="application/json,.json">
     </div>
     <div class="data-section">
+      <h3>tutorial</h3>
+      <p>Replay the welcome card.</p>
+      <button id="tutorialBtn" class="ghost">show tutorial</button>
+    </div>
+    <div class="data-section">
       <h3>reset</h3>
       <p>Wipe topics, sessions, entry-topic links. Cannot be undone.</p>
       <button id="resetBtn" class="ghost">reset all data</button>
     </div>`;
+  $('#tutorialBtn').onclick = () => { localStorage.removeItem(KEY_TUTORIAL); showTutorial(); };
   $('#exportBtn').onclick = () => {
     const blob = new Blob([JSON.stringify({ data, entryTopics }, null, 2)], { type: 'application/json' });
     const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `weel-${today()}.json`; a.click();
@@ -949,6 +956,7 @@ document.addEventListener('keydown', (e) => {
     if (e.key === 's' && _editorAPI.save) { e.preventDefault(); _editorAPI.save(); return; }
   }
   if (e.key === 'n') { e.preventDefault(); location.hash = '#/new-topic'; }
+  else if (e.key === 'f') { if (lib.rootHandle) { e.preventDefault(); location.hash = '#/new-file'; } }
   else if (e.key === 't') {
     e.preventDefault();
     const h = location.hash || '';
@@ -975,9 +983,48 @@ document.addEventListener('keydown', (e) => {
   else if (e.key === 'Escape') { location.hash = '#/'; }
 });
 
+// tutorial ────────────────────────────────────────────────────────
+function showTutorial() {
+  if (document.getElementById('tutorialOverlay')) return;
+  const overlay = document.createElement('div');
+  overlay.id = 'tutorialOverlay';
+  overlay.className = 'tutorial-overlay';
+  overlay.innerHTML = `
+    <div class="tutorial-card" role="dialog" aria-modal="true" aria-label="welcome to weel">
+      <div class="tutorial-brand">weel · locked in</div>
+      <h2>read, time, learn</h2>
+      <p>weel turns reading into tracked time. Open something to learn, hit a key, and the clock follows.</p>
+      <ol>
+        <li><b>library</b> — point the app at a folder of your articles, PDFs and notes. Click any file to read inline.</li>
+        <li><b>timer</b> — press <kbd>t</kbd> while reading. It logs minutes under the topic for that file. <kbd>t</kbd> again to stop.</li>
+        <li><b>topics &amp; goals</b> — set a weekly hour goal per topic. The bar shows where you stand for the week.</li>
+        <li><b>edit &amp; create</b> — markdown, txt, json and the like open in an in-app editor. <kbd>e</kbd> to switch.</li>
+        <li><b>shortcuts</b> — <kbd>r</kbd> random file · <kbd>n</kbd> new topic · <kbd>/</kbd> filter · <kbd>Esc</kbd> back</li>
+      </ol>
+      <p class="dim">Everything stays on your computer — tracker in browser storage, files in your folder.</p>
+      <div class="tutorial-actions">
+        <button id="tutSkip" class="ghost">skip</button>
+        <button id="tutGotIt">got it</button>
+      </div>
+    </div>`;
+  document.body.appendChild(overlay);
+  const close = () => closeTutorial();
+  $('#tutSkip').onclick = close;
+  $('#tutGotIt').onclick = close;
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });
+  document.addEventListener('keydown', escClose, { once: false });
+  function escClose(e) { if (e.key === 'Escape') { close(); document.removeEventListener('keydown', escClose); } }
+}
+function closeTutorial() {
+  const o = document.getElementById('tutorialOverlay');
+  if (o) o.remove();
+  localStorage.setItem(KEY_TUTORIAL, '1');
+}
+
 // boot ────────────────────────────────────────────────────────────
 (async function boot() {
   load();
   await tryRestoreLib();
   render();
+  if (!localStorage.getItem(KEY_TUTORIAL)) showTutorial();
 })();

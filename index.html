@@ -4,15 +4,22 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>weel</title>
+<link rel="icon" type="image/jpeg" href="images.jpg">
+<link rel="apple-touch-icon" href="images.jpg">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <header>
-  <div class="brand">
-    <span class="title">weel</span>
-    <span class="tagline">locked in</span>
+  <div class="header-left">
+    <a class="brand" href="#/">
+      <img src="images.jpg" alt="" class="brand-icon">
+      <span class="brand-text">
+        <span class="title">weel</span>
+        <span class="tagline">locked in</span>
+      </span>
+    </a>
+    <span class="path" id="weekTotal"></span>
   </div>
-  <span class="path" id="weekTotal"></span>
   <nav>
     <a href="#/">library</a>
     <a href="#/topics">topics</a>
@@ -34,7 +41,7 @@
 
 <main id="view"></main>
 
-<footer>t timer · n new topic · r random · e edit · / search · esc back</footer>
+<footer>t timer · n new topic · f new file · r random · e edit · / search · esc back</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script src="app.js"></script>
