@@ -999,7 +999,7 @@ function showTutorial() {
         <li><b>timer</b> — press <kbd>t</kbd> while reading. It logs minutes under the topic for that file. <kbd>t</kbd> again to stop.</li>
         <li><b>topics &amp; goals</b> — set a weekly hour goal per topic. The bar shows where you stand for the week.</li>
         <li><b>edit &amp; create</b> — markdown, txt, json and the like open in an in-app editor. <kbd>e</kbd> to switch.</li>
-        <li><b>shortcuts</b> — <kbd>r</kbd> random file · <kbd>n</kbd> new topic · <kbd>/</kbd> filter · <kbd>Esc</kbd> back</li>
+        <li><b>shortcuts</b> — <kbd>r</kbd> random file · <kbd>n</kbd> new topic · <kbd>f</kbd> new file · <kbd>/</kbd> filter · <kbd>Esc</kbd> back</li>
       </ol>
       <p class="dim">Everything stays on your computer — tracker in browser storage, files in your folder.</p>
       <div class="tutorial-actions">
