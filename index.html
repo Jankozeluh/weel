@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>weel</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+  <div class="brand">
+    <span class="title">weel</span>
+    <span class="tagline">locked in</span>
+  </div>
+  <span class="path" id="weekTotal"></span>
+  <nav>
+    <a href="#/">library</a>
+    <a href="#/topics">topics</a>
+    <a href="#/sessions">sessions</a>
+    <a href="#/stats">stats</a>
+    <a href="#/data">data</a>
+    <a href="#" id="themeBtn">theme</a>
+  </nav>
+</header>
+
+<div id="timerBar" class="timer-bar hidden">
+  <span class="dot">●</span>
+  <span id="timerTopic" class="t-topic"></span>
+  <span id="timerEntry" class="t-entry"></span>
+  <span id="timerElapsed" class="t-elapsed"></span>
+  <button id="timerStop">stop &amp; save</button>
+  <button id="timerCancel" class="ghost">discard</button>
+</div>
+
+<main id="view"></main>
+
+<footer>t timer · n new topic · r random · e edit · / search · esc back</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
